@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Adler-32</title>
+    <style>
+        html {
+            background-color: #A3A3A3;
+            font-family: 'Roboto', Verdana, Tahoma, sans-serif;
+            font-size:larger;
+            display: flex;
+            flex: 1 1 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        input {
+            min-height: 2em;
+            display: block;
+        }
+        form {
+            border: solid 1px black;
+            background-color: #FFFFFF;
+            border-radius: 0;
+        }
+        fieldset {
+           border: none
+        }
+        header {
+            border-bottom: solid 1px black;
+            text-align: center;
+            font-weight: bold;
+        }
+        h3 {
+            margin: 10px;
+        }
+        input[type=text] {
+            background-color: #DBDBD4;
+            border: 1px solid #565653;
+            border-radius: 0px;
+            width: 100%;
+            font-size: large;
+        }
+        input[type=text]:focus { 
+            /*  because of the border is bigger in the focused state it's going to cause ui jumping. */
+            margin: -1px; 
+            outline: none; 
+            border: 2px solid black; }
+        .container {
+            min-width: 23rem;
+            -webkit-box-shadow: -10px 10px 0px 2px rgba(0,0,0,0.78);
+            -moz-box-shadow: -10px 10px 0px 2px rgba(0,0,0,0.78);
+            box-shadow: -10px 10px 0px 2px rgba(0,0,0,0.22);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="">
+            <header><h3>ALDER-32 HASH</h3></header>
+            <fieldset>
+                <input type="text" id="myTextBox" placeholder="Input">
+                <hr>
+                <h4 id="result">
+                    Decimal:
+                    <br>
+                    Hex:
+                    <br>
+                    Binary:
+                </h4>
+            </fieldset>
+        </form>
+    </div> 
+</body>
+<script>
+    var resultBox = document.getElementById('result');
+    document.getElementById('myTextBox').addEventListener('input', (event) => {
+        var input = event.srcElement.value.split("").map((a) => a.charCodeAt())
+
+        var A = input.reduce((a, e, i) => {
+            i == 0 && (e += 1)
+            a.push((e + (a[i-1] || 0 )))
+        return a;
+        }, []);
+
+
+        var B = A.reduce((a, e, i) => {
+            a.push((e + (a[i-1] || 0)))
+            return a;
+        }, []).pop();
+
+        A = A.pop();
+        B = B;
+        var C = (B << 16) + A 
+
+        resultBox.innerHTML = 'Decimal: '+C+'</br> Hex: '+C.toString(16)+'</br> Binary: '+C.toString(2);
+    })
+</script>
+</html>
