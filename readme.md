@@ -1,4 +1,4 @@
-#Adler hash algorithm
+# Adler hash algorithm
 ![Showcase of the site](showcase.png)
 
 
